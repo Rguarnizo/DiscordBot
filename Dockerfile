@@ -1,6 +1,7 @@
-FROM n8nio/n8n:latest-debian
+FROM n8nio/n8n:1.41.0-debian
 
 USER root
+
 # Instalar Python
 RUN apt-get update && \
     apt-get install -y python3 python3-pip && \
