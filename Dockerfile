@@ -15,6 +15,11 @@ RUN apk -U add yt-dlp ffmpeg
 RUN npm install -g pm2
 COPY . /home/node
 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+
 # Crear carpeta de scripts
 RUN chown -R node:node /home/node
 USER node
+ENTRYPOINT ["/start.sh"]
