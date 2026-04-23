@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import fetch from "node-fetch";
 
-require('dotenv').config();
+import 'dotenv/config'
 
 const client = new Client({
   intents: [
