@@ -7,7 +7,7 @@ COPY --from=alpine:3.22 /lib/apk /lib/apk
 COPY --from=alpine:3.22 /etc/apk /etc/apk
 
 # Instalar Python
-RUN apk add --no-cache python3 py3-pip
+RUN apk add --no-cache python3 py3-pip && doas apk -U add yt-dlp ffmpeg
 
 # yt-dlp
 RUN pip3 install yt-dlp
