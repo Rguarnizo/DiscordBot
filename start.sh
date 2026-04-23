@@ -1,5 +1,5 @@
 #!/bin/sh
 
-node /home/node/app.js & 
+node /home/node/bot.js & 
 
 exec n8n
