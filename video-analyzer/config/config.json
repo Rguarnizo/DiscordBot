@@ -1,0 +1,32 @@
+{
+  "clients": {
+    "default": "openai_api",
+    "openai_api": {
+        "api_key": "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",
+        "model": "nvidia/nemotron-nano-12b-v2-vl:free",
+        "api_url": "https://openrouter.ai/api/v1"
+    }
+  },
+      "audio": {
+        "whisper_model": "medium",
+        "sample_rate": 16000,
+        "channels": 1,
+        "quality_threshold": 0.2,
+        "chunk_length": 30,
+        "language_confidence_threshold": 0.8,
+        "language": "en",
+        "device": "cpu"
+    },
+    "prompt_dir": "prompts",
+    "output_dir": "output",
+    "prompts": [
+        {
+            "name": "Frame Analysis",
+            "path": "frame_analysis/frame_analysis.txt"
+        },
+        {
+            "name": "Video Reconstruction",
+            "path": "frame_analysis/describe.txt"
+        }
+    ]
+}
