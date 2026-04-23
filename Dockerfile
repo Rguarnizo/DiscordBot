@@ -18,3 +18,4 @@ COPY . /home/node
 # Crear carpeta de scripts
 RUN chown -R node:node /home/node
 USER node
+CMD ["sh", "-c", "pm2 start /home/node/app.js --name discord-bot && n8n"]
