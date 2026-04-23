@@ -16,4 +16,4 @@ RUN npm install -g pm2
 RUN chown -R node:node /home/node
 USER node
 
-CMD ["sh", "-c", "pm2 start /home/node/bot.js && n8n"]
+CMD ["node", "/home/node/start.js"]
