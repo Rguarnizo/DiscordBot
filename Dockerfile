@@ -13,6 +13,7 @@ RUN apk -U add yt-dlp ffmpeg
 
 # PM2
 RUN npm install -g pm2
+COPY . /home/node
 
 # Crear carpeta de scripts
 RUN chown -R node:node /home/node

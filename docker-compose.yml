@@ -12,7 +12,6 @@ services:
       - NODES_EXCLUDE=[]
       - TZ=Europe/Rome
     volumes:
-      - ./:/home/node/
       - n8n_data:/home/node/.n8n
 
 volumes:
