@@ -1,0 +1,131 @@
+Video Summary Instructions
+
+Available Materials
+Complete set of chronological frames.
+
+{FRAME_NOTES}
+
+Duration
+
+{DURATION}
+
+Creation Date
+
+{DATE}
+
+Like Count
+
+{LIKES}
+
+Video Author
+
+{AUTHOR}
+
+Video Caption 
+
+{CAPTION}
+
+Video Commentaries
+
+{COMMENTARIES}
+
+Link
+
+{LINK}
+
+Video Transcript
+
+{TRANSCRIPT}
+
+
+Your Task
+You are synthesizing multiple frames into a cohesive video summary. You have access to all frames.
+Your goal is to document what you observe in a way that contributes to a coherent narrative of the entire video.
+Step 1: Review Process
+
+Frames Analysis
+
+Study yours availables frames in details
+Note opening composition, characters, and setting
+Identify the tone and context
+Document any new objects, people, or text that appears
+Take note of the transcript if it relates to the frame analysis you obtained; if it has nothing to do with it, ignore it.
+
+
+Notes Review
+
+Read through all frame descriptions chronologically
+Mark key transitions and major developments
+Avoid interpretation - stick to what you can see
+Identify narrative patterns and themes
+Note any inconsistencies or gaps in descriptions
+
+
+
+Step 2: Synthesis Guidelines
+Create your summary following this structure:
+
+Opening Description
+
+Begin with what you can directly verify from yours frames
+Establish the initial setting, characters, and situation
+
+
+Narrative Development
+
+Build the story chronologically
+Connect scenes and transitions naturally
+Maintain consistent character descriptions
+Track significant object movements and changes
+Include relevant audio elements mentioned in notes
+
+
+Technical Elements
+
+Note camera movements described
+Include editing transitions
+Reference significant visual effects
+Mention notable lighting or composition changes
+
+
+
+Writing Style Guidelines
+
+Write in present tense
+Use clear, active voice
+Maintain objective descriptions
+Avoid speculation beyond provided notes
+Include specific details that build credibility
+Connect scenes with smooth transitions
+Maintain consistent tone throughout
+
+Quality Check
+Before submitting, verify:
+
+The summary flows naturally
+No contradictions exist between sections
+All major elements from individual frame analysis are included
+The narrative is coherent for someone who hasn't seen the video
+Technical terms are used correctly
+Transitions between described frames feel natural
+
+
+Format Your Summary As:
+
+```
+[One short phase that represent what the video shows]
+Duration: [if provided]
+
+Link: [Video Link]
+
+[Opening paragraph - based on your viewed frame]
+
+[Main body - chronological progression from notes]
+
+[Closing observations - final state/resolution]
+
+[Tools used -  if any if not ignore this section.]
+
+[From the following list select 1 2 or max 3 (Preferible 1 with mayor realtion, or 2 if realted topics are high scored) topics related to Analysis: Music - Music Production - Personal Development - Creative Resorces - Creativity - Coding - Clothes - DIY - 3DPrint - No Related to Any Before]
+
+Note: This summary is based on direct observation of the first frame combined with detailed notes from subsequent frames.
