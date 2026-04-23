@@ -7,7 +7,7 @@ COPY --from=alpine:3.22 /lib/apk /lib/apk
 COPY --from=alpine:3.22 /etc/apk /etc/apk
 
 # Instalar Python
-RUN apk add --no-cache python3 py3-pip && apk -U add yt-dlp ffmpeg
+RUN apk add --no-cache python3 py3-pip nodejs npm && apk -U add yt-dlp ffmpeg
 
 # PM2
 RUN npm install -g pm2
