@@ -7,7 +7,9 @@ COPY --from=alpine:3.22 /lib/apk /lib/apk
 COPY --from=alpine:3.22 /etc/apk /etc/apk
 
 # Instalar Python
-RUN apk add --no-cache python3 py3-pip nodejs npm && apk -U add yt-dlp ffmpeg
+RUN apk add --no-cache python3 py3-pip 
+RUN apk add --no-cache nodejs npm
+RUN apk -U add yt-dlp ffmpeg
 
 # PM2
 RUN npm install -g pm2
@@ -16,4 +18,4 @@ RUN npm install -g pm2
 RUN chown -R node:node /home/node
 USER node
 
-CMD ["node", "/home/node/start.js"]
+CMD ["pm2", "/home/node/start.js"]
