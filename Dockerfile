@@ -1,11 +1,13 @@
-FROM n8nio/n8n:1.41.0-debian
-
+FROM n8nio/n8n:latest
 USER root
 
+# Restore apk from Alpine (n8n uses Alpine 3.22)
+COPY --from=alpine:3.22 /sbin/apk /sbin/apk
+COPY --from=alpine:3.22 /lib/apk /lib/apk
+COPY --from=alpine:3.22 /etc/apk /etc/apk
+
 # Instalar Python
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt-get clean
+RUN apk add --no-cache python3 py3-pip
 
 # yt-dlp
 RUN pip3 install yt-dlp
