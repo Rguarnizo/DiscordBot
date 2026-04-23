@@ -17,5 +17,3 @@ RUN npm install -g pm2
 # Crear carpeta de scripts
 RUN chown -R node:node /home/node
 USER node
-
-CMD ["pm2", "/home/node/start.js"]
