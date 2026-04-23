@@ -1,5 +1,5 @@
 #!/bin/sh
 
-pm2 start /home/node/app.js --name discord-bot
+node /home/node/app.js & 
 
 exec n8n
