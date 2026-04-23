@@ -1,15 +1,19 @@
-FROM n8nio/n8n:latest
+FROM n8nio/n8n:latest-debian
 
 USER root
+# Instalar Python
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean
 
-# Instalar Python y pip
-RUN apk add --no-cache python3 py3-pip
-
-# Instalar yt-dlp
+# yt-dlp
 RUN pip3 install yt-dlp
+
+# PM2
 RUN npm install -g pm2
 
 # Crear carpeta de scripts
-RUN mkdir -p /home/node/scripts && chown -R node:node /home/node
-CMD ["sh", "-c", "pm2 start /home/node/bot.js && n8n"]
+RUN chown -R node:node /home/node
 USER node
+
+CMD ["sh", "-c", "pm2 start /home/node/bot.js && n8n"]
