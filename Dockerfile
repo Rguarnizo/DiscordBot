@@ -7,13 +7,16 @@ COPY --from=alpine:3.22 /lib/apk /lib/apk
 COPY --from=alpine:3.22 /etc/apk /etc/apk
 
 # Instalar Python
-RUN apk add --no-cache python3 py3-pip 
+RUN apk add --no-cache python3 py3-pip pipx
+
 RUN apk add --no-cache nodejs npm
 RUN apk -U add yt-dlp ffmpeg
 
 # PM2
 RUN npm install -g pm2
 COPY . /home/node
+
+RUN pipx install /home/node/video-analyzer
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
