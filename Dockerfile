@@ -30,6 +30,7 @@ WORKDIR /home/n8n/app
 
 # Dar permisos
 RUN chown -R n8n:n8n /home/n8n
+COPY . /home/n8n/app/
 
 # Cambiar al usuario no root
 USER n8n
