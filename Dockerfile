@@ -23,7 +23,7 @@ RUN apt update && apt install -y \
 RUN useradd -m -s /bin/bash n8n
 
 # (Opcional) darle sudo sin contraseña
-RUN echo "appuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "n8n ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Crear directorio de trabajo
 WORKDIR /home/n8n/app
