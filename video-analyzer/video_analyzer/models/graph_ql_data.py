@@ -58,7 +58,6 @@ class ClipsMetadata:
     audio_type: Optional[str]
     achievements_info: Optional[AchievementsInfo]
     music_info: Optional[MusicInfo]
-    original_sound_info: Optional[str]
     is_shared_to_fb: Optional[bool]
 
     @staticmethod
@@ -66,9 +65,8 @@ class ClipsMetadata:
         _audio_type = str(obj.get("audio_type"))
         _achievements_info = AchievementsInfo.from_dict(obj.get("achievements_info"))
         _music_info = MusicInfo.from_dict(obj.get("music_info"))
-        _original_sound_info = str(obj.get("original_sound_info"))
         _is_shared_to_fb = False
-        return ClipsMetadata(_audio_type, _achievements_info, _music_info, _original_sound_info, _is_shared_to_fb)
+        return ClipsMetadata(_audio_type, _achievements_info, _music_info, _is_shared_to_fb)
 
 # Example Usage
 # jsonstring = json.loads(myjsonstring)
@@ -130,6 +128,23 @@ class Caption:
         _has_translation = str(obj.get("has_translation"))
         _created_at = int(obj.get("created_at"))
         return Caption(_text, _pk, _has_translation, _created_at)
+    
+@dataclass
+class VideoVersion:
+    width: Optional[int]
+    height: Optional[int]
+    url: Optional[str]
+    type: Optional[int]
+
+    @staticmethod
+    def from_dict(obj: Any) -> "VideoVersion":
+        return VideoVersion(
+            width=obj.get("width"),
+            height=obj.get("height"),
+            url=obj.get("url"),
+            type=obj.get("type")
+        )
+
     
 @dataclass
 class Owner:

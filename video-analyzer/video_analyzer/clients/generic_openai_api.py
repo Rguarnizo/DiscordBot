@@ -7,7 +7,7 @@ from .llm_client import LLMClient
 import logging
 
 logger = logging.getLogger(__name__)
-
+logging.getLogger(__name__).setLevel(logging.WARNING)
 # Constants
 DEFAULT_MAX_RETRIES = 3
 RATE_LIMIT_WAIT_TIME = 25  # seconds

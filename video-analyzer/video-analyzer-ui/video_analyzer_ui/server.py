@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 
 # Initialize logger
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 class VideoAnalyzerUI:
     def __init__(self, host='localhost', port=5000, dev_mode=False):

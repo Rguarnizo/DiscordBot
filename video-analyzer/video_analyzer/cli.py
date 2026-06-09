@@ -21,6 +21,7 @@ from .link_processor import LinkProcessor
 
 # Initialize logger at module level
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 def get_log_level(level_str: str) -> int:
     """Convert string log level to logging constant."""
@@ -156,7 +157,8 @@ def main():
             
         # # Stage 2.5: Extract Video Information and Author
         link_processor = LinkProcessor()
-        data_instagram = link_processor.scrape_instagram_reel(args.video_link)
+        data_instagram,shortcode = link_processor.scrape_instagram_reel(args.video_link)
+        print(data_instagram)
         
         # # Stage 2: Frame Analysis
         # if args.start_stage <= 2:
@@ -180,11 +182,11 @@ def main():
         #         frame_analyses, frames, transcript
         #     )
 
-        API_KEY = "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"
+        API_KEY = os.getenv("OPENROUTER_APIKEY")
         MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
 
         # Carpeta donde están tus frames
-        IMAGE_FOLDER = "output/frames"  # cambia esto
+        IMAGE_FOLDER = output_dir / "frames"  # cambia esto
 
         # =========================
         # FUNCIONES
@@ -222,6 +224,7 @@ def main():
             contenido = f.read()
         
         
+        commentaries = "".join( x.text + "\n" for x in data_instagram.preview_comments)
 
         prompt = contenido.format(FRAME_NOTES=frames_prompt,
                                   TRANSCRIPT=transcript_prompt,
@@ -230,7 +233,9 @@ def main():
                                   DATE=datetime.fromtimestamp(data_instagram.caption.created_at).strftime("%Y-%m-%d"),
                                   LIKES=data_instagram.like_count,
                                   AUTHOR=data_instagram.owner.username,
-                                  CAPTION=data_instagram.caption.text)
+                                  CAPTION=data_instagram.caption.text,
+                                  COMMENTARIES=commentaries
+                                  )
 
         
         
@@ -277,10 +282,10 @@ def main():
         result = response.json()
 
         if "choices" in result:
-            print("\n===== ANALYSIS COMPLETO =====\n")
+            logger.info(json.dumps(result))
         else:
-            print("Error:")
-            print(json.dumps(result, indent=2))
+            raise ValueError(f"Error: Error en el resultado de la IA: {json.dumps(result, indent=2)}")
+            
 
         
         
@@ -302,11 +307,19 @@ def main():
                 "text": transcript.text if transcript else None,
                 "segments": transcript.segments if transcript else None
             } if transcript else None,
-            "video_description": result["choices"][0]["message"]["content"]
+            "video_description": result["choices"][0]["message"]["content"],
+            "video_link": args.video_link,
+            "video_url": data_instagram.video_versions[0].url,
+            "video_author": data_instagram.owner.username,
+            "profile_pic_url":data_instagram.owner.profile_pic_url,
+            "caption":data_instagram.caption.text,
+            "transcript":transcript_prompt,
+            "thumbnail":data_instagram.display_uri,
         }
         
+        print(json.dumps(results))
         
-        with open(output_dir / "analysis.json", "w") as f:
+        with open(output_dir / f"{shortcode}.json", "w") as f:
             json.dump(results, f, indent=2)
             
         logger.info("\nTranscript:")

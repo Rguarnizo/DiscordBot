@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import List, Optional
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 
 @dataclass

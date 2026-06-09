@@ -1,4 +1,8 @@
+opencv-python>=4.8.0
+numpy>=1.24.0
 requests>=2.31.0
 Pillow>=10.0.0
 pydub>=0.25.1
-faster-whisper>=1.2.1
+faster-whisper>=0.6.0
+pyaudioop; python_version >= "3.13"
+dacite>=1.9.2

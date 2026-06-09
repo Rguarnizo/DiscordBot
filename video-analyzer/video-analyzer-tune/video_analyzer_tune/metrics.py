@@ -8,6 +8,7 @@ import dspy
 from .signatures import DescriptionJudgeSignature, FrameNoteJudgeSignature
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 # Sample at most this many frames when scoring frame notes to keep evaluation fast
 MAX_FRAME_SAMPLES = 5
