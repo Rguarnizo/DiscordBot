@@ -6,6 +6,7 @@ import numpy as np
 import logging
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 @dataclass
 class Frame:

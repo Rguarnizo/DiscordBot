@@ -18,7 +18,7 @@
         "device": "cpu"
     },
     "prompt_dir": "prompts",
-    "output_dir": "output",
+    "output_dir": "/home/rguarnizo/.n8n-files/discord-bot",
     "prompts": [
         {
             "name": "Frame Analysis",

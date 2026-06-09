@@ -3,9 +3,10 @@ from pathlib import Path
 import json
 from typing import Any
 import logging
-import pkg_resources
+from importlib.resources import files
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 class Config:
     def __init__(self, config_dir: str = "config"):
@@ -19,7 +20,7 @@ class Config:
         # If not found, fallback to package's default config
         if not self.default_config.exists():
             try:
-                default_config_path = pkg_resources.resource_filename('video_analyzer', 'config/default_config.json')
+                default_config_path = str(files('video_analyzer').joinpath('config/default_config.json'))
                 self.default_config = Path(default_config_path)
                 logger.debug(f"Using packaged default config from {self.default_config}")
             except Exception as e:

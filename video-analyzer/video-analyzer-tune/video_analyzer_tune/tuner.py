@@ -12,6 +12,7 @@ from .pipeline import VideoAnalysisPipeline
 from .metrics import VideoAnalysisMetric
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 
 class PromptTuner:

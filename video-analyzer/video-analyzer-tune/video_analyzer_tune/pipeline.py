@@ -8,7 +8,7 @@ import dspy
 from .signatures import FrameAnalysisSignature, ReconstructionSignature
 
 logger = logging.getLogger(__name__)
-
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 class VideoAnalysisPipeline(dspy.Module):
     """DSPy pipeline that mirrors the video-analyzer two-stage process:

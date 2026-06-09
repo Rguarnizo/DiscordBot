@@ -1,9 +1,10 @@
 from pathlib import Path
 import logging
 from typing import List, Dict
-import pkg_resources
+from importlib.resources import files
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 class PromptLoader:
     def __init__(self, prompt_dir: str, prompts: List[Dict[str, str]]):
@@ -15,7 +16,7 @@ class PromptLoader:
         """Find prompt file in package resources, package directory, or user directory."""
         # First try package resources (works for both install modes)
         try:
-            package_path = pkg_resources.resource_filename('video_analyzer', f'prompts/{prompt_path}')
+            package_path = str(files('video_analyzer').joinpath('config/default_config.json'))
             if Path(package_path).exists():
                 return Path(package_path)
         except Exception as e:

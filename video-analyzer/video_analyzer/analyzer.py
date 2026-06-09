@@ -6,6 +6,7 @@ from .frame import Frame
 from .audio_processor import AudioTranscript
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 class VideoAnalyzer:
     def __init__(self, client: LLMClient, model: str, prompt_loader: PromptLoader, temperature: float, user_prompt: str = ""):

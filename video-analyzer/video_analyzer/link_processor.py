@@ -2,18 +2,19 @@ import json
 import logging
 from pathlib import Path
 import re
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, Tuple
 from dataclasses import dataclass
 import subprocess
 from pydub import AudioSegment
 from urllib.parse import quote
-from .models.graph_ql_data import ClipsMetadata, MusicInfo,Owner,PreviewComment,Caption, User
+from .models.graph_ql_data import ClipsMetadata,Owner,PreviewComment,Caption, User, VideoVersion
 from dacite import from_dict
 import requests
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 @dataclass
 class GraphQLData:
@@ -67,7 +68,7 @@ class GraphQLData:
     user: User
     product_type: str
     #? Algunos comentarios-
-    preview_comments:  List[PreviewComment]
+    preview_comments:  Optional[List[PreviewComment]]
     {
         # [{
         #                 "__typename":"XDTCommentDict",
@@ -95,6 +96,8 @@ class GraphQLData:
         #              }]
     }
     #? Caption y descrición del video.
+    display_uri: Optional[str]
+    video_versions: Optional[List[VideoVersion]]
     caption: Caption 
     {
         # {
@@ -122,7 +125,7 @@ class LinkProcessor:
     
     def extract_shortcode_from_url(self,url):
         url = url.split('?')[0]  # Remove query parameters
-        pattern = r'instagram\.com/(?:[^/]+/)?(?:reel|p)/([^/?]+)'
+        pattern = r'(?:p|reel|reels|tv)/([^/?]+)'
         match = re.search(pattern, url)
         
         if not match:
@@ -135,7 +138,7 @@ class LinkProcessor:
         encoded_variables = quote(variables)
         return f'variables={encoded_variables}&doc_id=24368985919464652'
 
-    def scrape_instagram_reel(self,url) -> GraphQLData:
+    def scrape_instagram_reel(self,url) -> Tuple[GraphQLData,str]:
         try:
             shortcode = self.extract_shortcode_from_url(url)
             payload = self.create_payload(shortcode)
@@ -167,17 +170,17 @@ class LinkProcessor:
                 data = response.json()
                 
                 # Save to file
-                with open(f'{shortcode}_data.json', 'w') as f:
+                with open(f'InstagramData/{shortcode}_data.json', 'w') as f:
                     json.dump(data, f, indent=4)
                 data = self.remove_none(data)
                 graphql_data = from_dict(GraphQLData,data["data"]["xdt_api__v1__media__shortcode__web_info"]["items"][0])
                 
-                return graphql_data
+                return (graphql_data,shortcode)
         
         except requests.Timeout:
-            return {"error": "Request timeout"}
+            return ({"error": "Request timeout"},None)
         except Exception as e:
-            return {"error": str(e)}
+            return ({"error": str(e)},None)
     
     
     def remove_none(self,data):

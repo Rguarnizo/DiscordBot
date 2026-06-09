@@ -6,7 +6,7 @@ from pathlib import Path
 import dspy
 
 logger = logging.getLogger(__name__)
-
+logging.getLogger(__name__).setLevel(logging.WARNING)
 # Prompt file templates preserving the exact token positions that
 # video_analyzer/analyzer.py uses for string replacement.
 #
@@ -94,7 +94,7 @@ def write_prompt_files(instructions: dict, output_dir: Path) -> None:
 
 def print_config_snippet(output_dir: Path) -> None:
     """Print the config.json snippet for the user to paste in."""
-    print(f"""
+    logger.info(f"""
 Tuning complete! Add the following to your config/config.json:
 
   "prompt_dir": "{output_dir}",

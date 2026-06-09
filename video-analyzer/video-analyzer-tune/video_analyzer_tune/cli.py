@@ -10,6 +10,7 @@ from .tuner import PromptTuner
 from .prompt_writer import extract_optimized_instructions, write_prompt_files, print_config_snippet
 
 logger = logging.getLogger(__name__)
+logging.getLogger(__name__).setLevel(logging.WARNING)
 
 
 def get_log_level(level_str: str) -> int:
