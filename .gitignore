@@ -3,3 +3,5 @@ Video
 .env
 .env.*
 video-analyzer/video_analyzer/config/default_config.json
+video-analyzer/video_analyzer/config/example.default_config.json
+video-analyzer/config/config_analyzer.json

@@ -12,7 +12,7 @@ class Config:
     def __init__(self, config_dir: str = "config"):
         # Handle user-provided config directory
         self.config_dir = Path(config_dir)
-        self.user_config = self.config_dir / "config.json"
+        self.user_config = self.config_dir / "config_analyzer.json"
         
         # First try to find default_config.json in the user-provided directory
         self.default_config = self.config_dir / "default_config.json"
