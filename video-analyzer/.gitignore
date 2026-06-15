@@ -2,6 +2,7 @@
 assets/
 output/
 tuned_prompts/
+video_analyzer/config/default_config.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

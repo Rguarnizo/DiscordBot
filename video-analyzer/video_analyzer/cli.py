@@ -8,7 +8,7 @@ import sys
 import os
 import base64
 import requests
-
+from dotenv import load_dotenv
 
 from .config import Config, get_client, get_model
 from .frame import VideoProcessor
@@ -18,6 +18,8 @@ from .audio_processor import AudioProcessor
 from .clients.ollama import OllamaClient
 from .clients.generic_openai_api import GenericOpenAIAPIClient
 from .link_processor import LinkProcessor
+
+load_dotenv()
 
 # Initialize logger at module level
 logger = logging.getLogger(__name__)
@@ -341,7 +343,9 @@ def main():
         logger.error(f"Error during video analysis: {e}")
         if not config.get("keep_frames"):
             cleanup_files(output_dir)
+        print(f"Error: {e}", file=sys.stderr)
         raise
+        
 
 if __name__ == "__main__":
     main()

@@ -109,7 +109,7 @@ VIDEO ANALYSIS: [One paragraph explaining what the video shows, ignoring details
 
 TOOLS: [Tools used -  if any if not ignore this section.] \n
 
-TAGS: [From the following list and only from the following list, (NOT FROM VIDEO TAGS, NEITHER IF IS NOT IN LIST)  select 1 or 2 (Preferible 1 with mayor realtion, or 2 if realted topics are high scored) topics related to Analysis, verify twice if the tags are related and have sense with VIDEO_ANALYSIS, every one separated by hyphen : Linux - Homelab - Art - Table Tennis - Music - Music Production - Personal Development - Creative Resorces - Coding - Clothes - DIY - 3DPrint - No Related to Any Before] \n
+TAGS: [From the following list and only from the following list, (NOT FROM VIDEO TAGS, NEITHER IF IS NOT IN LIST)  select 1 or 2 (Preferible 1 with mayor realtion, or 2 if realted topics are high scored) topics related to Analysis, verify twice if the tags are related and have sense with VIDEO_ANALYSIS, every one separated by hyphen : Chess - Philosophy - Linux - Homelab - Art - Table Tennis - Music - Music Production - Personal Development - Creative Resorces - Coding - Clothes - DIY - 3DPrint - No Related to Any Before] \n
 
 ```
 
