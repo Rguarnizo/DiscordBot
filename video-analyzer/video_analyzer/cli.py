@@ -184,7 +184,7 @@ def main():
         #         frame_analyses, frames, transcript
         #     )
 
-        API_KEY = os.getenv("OPENROUTER_APIKEY")
+        API_KEY = config.get("clients", {}).get("openai_api", {}).get("api_key",""), 
         MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
 
         # Carpeta donde están tus frames
