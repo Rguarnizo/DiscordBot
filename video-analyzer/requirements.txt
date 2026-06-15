@@ -6,3 +6,4 @@ pydub>=0.25.1
 faster-whisper>=0.6.0
 pyaudioop; python_version >= "3.13"
 dacite>=1.9.2
+python-dotenv

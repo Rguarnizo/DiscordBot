@@ -2,3 +2,4 @@ node_modules
 Video
 .env
 .env.*
+video-analyzer/video_analyzer/config/default_config.json
