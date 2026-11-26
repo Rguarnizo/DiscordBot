@@ -94,23 +94,47 @@ Technical terms are used correctly
 Transitions between described frames feel natural
 
 
-Format Your Summary As:
+The output must exactly match the JSON template below. Do not modify field names, capitalization, spacing or punctuation. Every field name is case-sensitive. Any deviation is considered an invalid response. Return ONLY the JSON object.
 
-```
-TITLE: [One short phase that represent what the video shows] \n
+{{
+  "title": "One short phase that represent what the video shows",
+  "author": "Author of video",
+  "duration": "if provided and without decimal points",
+  "link": "Exact Link Provided above, dont change it!",
+  "video_analysis": "One paragraph explaining what the video shows, ignoring details, except if is explanation guide,ignore enviromental details, showing all in general terms",
+  "tools": "Tools used -  if any if not ignore this section.",
+  "tags": [
+  ]
+}}
 
-AUTHOR: [Author of video]
 
-DURATION: [if provided and without decimal points] \n
+In tags json field put From the following list and only from the following list, (NOT FROM VIDEO TAGS, NEITHER IF IS NOT IN LIST) select 1 or 2 tags (Preferible 1 with mayor realtion, or 2 if realted topics are high scored) topics related to Analysis, verify twice if the tags are related and have sense with video_analysis json field:
+[
+Chess
+Philosophy
+Linux
+Homelab
+Art
+Table Tennis
+Music
+Music Production
+Personal Development
+Creative Resorces
+Coding
+Clothes
+DIY
+3DPrint
+No Related to Any Before
+]
 
-LINK: [Exact Link Provided above, dont change it!] \n
 
-VIDEO ANALYSIS: [One paragraph explaining what the video shows, ignoring details, except if is explanation guide,ignore enviromental details, showing all in general terms] \n
+The field names of JSON above are immutable. Also for names of TAGS.
+Do not rename them.
+Do not translate them.
+Do not add or remove spaces.
+Do not fix grammar.
+Do not change capitalization.
+Do not invent new field names.
 
-TOOLS: [Tools used -  if any if not ignore this section.] \n
-
-TAGS: [From the following list and only from the following list, (NOT FROM VIDEO TAGS, NEITHER IF IS NOT IN LIST)  select 1 or 2 (Preferible 1 with mayor realtion, or 2 if realted topics are high scored) topics related to Analysis, verify twice if the tags are related and have sense with VIDEO_ANALYSIS, every one separated by hyphen : Chess - Philosophy - Linux - Homelab - Art - Table Tennis - Music - Music Production - Personal Development - Creative Resorces - Coding - Clothes - DIY - 3DPrint - No Related to Any Before] \n
-
-```
 
 Note: This summary is based on direct observation of the first frame combined with detailed notes from subsequent frames.

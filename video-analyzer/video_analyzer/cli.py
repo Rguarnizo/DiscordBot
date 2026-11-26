@@ -184,8 +184,8 @@ def main():
         #         frame_analyses, frames, transcript
         #     )
 
-        API_KEY = config.get("clients", {}).get("openai_api", {}).get("api_key",""), 
-        MODEL = "nvidia/nemotron-nano-12b-v2-vl:free"
+        API_KEY = os.getenv("OPENROUTER_APIKEY")
+        MODEL = "qwen-vl"
 
         # Carpeta donde están tus frames
         IMAGE_FOLDER = output_dir / "frames"  # cambia esto
@@ -232,10 +232,10 @@ def main():
                                   TRANSCRIPT=transcript_prompt,
                                   DURATION=processor.duration,
                                   LINK=args.video_link,
-                                  DATE=datetime.fromtimestamp(data_instagram.caption.created_at).strftime("%Y-%m-%d"),
+                                  DATE=datetime.fromtimestamp(data_instagram.caption.created_at).strftime("%Y-%m-%d") if data_instagram.caption else "",
                                   LIKES=data_instagram.like_count,
                                   AUTHOR=data_instagram.owner.username,
-                                  CAPTION=data_instagram.caption.text,
+                                  CAPTION=data_instagram.caption.text if data_instagram.caption else "",
                                   COMMENTARIES=commentaries
                                   )
 
@@ -261,7 +261,7 @@ def main():
         # REQUEST
         # =========================
         response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
+            url="http://localhost:8000/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {API_KEY}",
                 "Content-Type": "application/json",
@@ -274,7 +274,6 @@ def main():
                         "content": content
                     }
                 ],
-                "reasoning": {"enabled": True}
             })
         )
 
@@ -285,11 +284,11 @@ def main():
 
         if "choices" in result:
             logger.info(json.dumps(result))
-        else:
+        else:     
             raise ValueError(f"Error: Error en el resultado de la IA: {json.dumps(result, indent=2)}")
             
 
-        
+        print(result["choices"][0]["message"]["content"])
         
         output_dir.mkdir(parents=True, exist_ok=True)
         results = {
@@ -314,7 +313,7 @@ def main():
             "video_url": data_instagram.video_versions[0].url,
             "video_author": data_instagram.owner.username,
             "profile_pic_url":data_instagram.owner.profile_pic_url,
-            "caption":data_instagram.caption.text,
+            "caption":data_instagram.caption.text if data_instagram.caption else "",
             "transcript":transcript_prompt,
             "thumbnail":data_instagram.display_uri,
         }
@@ -344,7 +343,10 @@ def main():
         if not config.get("keep_frames"):
             cleanup_files(output_dir)
         print(f"Error: {e}", file=sys.stderr)
-        raise
+        sys.exit(1) # Informa a n8n que el proceso falló
+        raise e
+        
+    
         
 
 if __name__ == "__main__":

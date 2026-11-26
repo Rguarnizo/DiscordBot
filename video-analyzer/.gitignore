@@ -2,6 +2,8 @@
 assets/
 output/
 tuned_prompts/
+Videos/
+.vscode/
 video_analyzer/config/default_config.json
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -98,7 +98,7 @@ class GraphQLData:
     #? Caption y descrición del video.
     display_uri: Optional[str]
     video_versions: Optional[List[VideoVersion]]
-    caption: Caption 
+    caption: Optional[Caption] 
     {
         # {
         #              "text":"4Behind the scenes of how I made the Chaos Seigaiha keycaps for @urbanedcsupply \n\n#edc #keycaps #artisankeycaps",
@@ -132,6 +132,14 @@ class LinkProcessor:
             raise ValueError("Invalid Instagram URL")
         
         return match.group(1)
+    
+    def shortcode_to_pk(self,code: str) -> int:
+        pk = 0
+        ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+
+        for c in code[:11]:
+            pk = pk * 64 + ALPHABET.index(c)
+        return pk
 
     def create_payload(self, shortcode):
         variables = json.dumps({"shortcode": shortcode})
@@ -141,21 +149,28 @@ class LinkProcessor:
     def scrape_instagram_reel(self,url) -> Tuple[GraphQLData,str]:
         try:
             shortcode = self.extract_shortcode_from_url(url)
-            payload = self.create_payload(shortcode)
-            headers = {
-                    'content-type': 'application/x-www-form-urlencoded',
-                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-                    'x-csrftoken': 'BxGEN9GJKdXpi0ldJEbd160kLPcHzCix',
-                    'x-ig-app-id': '936619743392459',
-                }
+            pk = self.shortcode_to_pk(shortcode)
+            
+            s = requests.Session()
+            s.cookies.update({
+                "sessionid":  "***REMOVED***",
+                "csrftoken":  "***REMOVED***",
+                "ds_user_id": "16121365102",
+            })
+            s.headers.update({
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0",
+                "X-IG-App-ID": "936619743392459",
+                "X-CSRFToken": s.cookies["csrftoken"],
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": f"https://www.instagram.com/reels/{shortcode}/",
+            })
+           
     
             
-            response = requests.post(
-                "https://www.instagram.com/graphql/query",
-                headers=headers,
-                data=payload,
-                timeout=10
-            )
+            response = s.post("https://www.instagram.com/graphql/query", data={
+                "variables": json.dumps({"shortcode": shortcode}),
+                "doc_id": "24368985919464652",
+                })
             
             # Handle rate limiting
             if response.status_code == 429:

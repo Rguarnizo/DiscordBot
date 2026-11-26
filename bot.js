@@ -21,6 +21,24 @@ const client = new Client({
   ],
 });
 
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+
+    if (err?.code === 'UND_ERR_CONNECT_TIMEOUT') {
+        process.exit(1);
+    }
+
+    process.exit(1); // generalmente cualquier uncaughtException amerita reiniciar
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled Rejection:', reason);
+
+    if (reason?.code === 'UND_ERR_CONNECT_TIMEOUT') {
+        process.exit(1);
+    }
+});
+
 const channels_ids = {
   "Table Tennis": "1507391557568041074",
   "Music": "1321920857744085096",
@@ -47,8 +65,6 @@ app.post('/send-embed', async (req, res) => {
   try {
     const data  = req.body;
 
-   //! const channel = await client.channels.fetch('CHANNEL_ID');
-   //TODO: Seleccionar channels a enviar.
     
     for (const element of data.tags) {
       const channel_id = channels_ids[element];
@@ -88,7 +104,17 @@ const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
 const N8N_WEBHOOK = process.env.N8N_WEBHOOK;
 
-client.login(DISCORD_TOKEN);
+
+async function startBot() {
+    try {
+        await client.login(DISCORD_TOKEN);
+    } catch (error) {
+        console.error('Error al iniciar sesión en Discord:', error);
+        process.exit(1);
+    }
+}
+
+startBot();
 
 client.once("clientReady", () => {
   console.log(`Bot conectado como ${client.user.tag}`);
