@@ -155,7 +155,7 @@ class Owner:
     show_account_transparency_details: Optional[bool]
     __typename: Optional[str]
     is_private: Optional[bool]
-    friendship_status: Optional[str]
+    friendship_status: Optional[Any]  # str en GraphQL, objeto en la API REST
     transparency_product: Optional[str]
     transparency_product_enabled: Optional[bool]
     transparency_label: Optional[str]
