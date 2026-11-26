@@ -118,14 +118,14 @@ class PreviewComments:
 class Caption:
     text: Optional[str]
     pk: Optional[str]
-    has_translation: Optional[str]
+    has_translation: Optional[bool]
     created_at: Optional[int]
 
     @staticmethod
     def from_dict(obj: Optional[Any]) -> 'Caption':
         _text = str(obj.get("text"))
         _pk = str(obj.get("pk"))
-        _has_translation = str(obj.get("has_translation"))
+        _has_translation = bool(obj.get("has_translation"))
         _created_at = int(obj.get("created_at"))
         return Caption(_text, _pk, _has_translation, _created_at)
     
